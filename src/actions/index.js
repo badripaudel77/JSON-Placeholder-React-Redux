@@ -1,5 +1,7 @@
 //action creators are the one to deal with fetching / calling apis
 
+import _ from 'lodash'; // importing lodash for memoize function [ stop unnecessary fetching.]
+
 import api from '../api/api';
 import { types } from '../types';
 
@@ -13,8 +15,13 @@ export const getPosts = () => {
 }
 
 //arrow function syntax, function returning function like above.
-export const getUser = (userId) => async dispatch=> {
-        const response = await api.get(`/users/${userId}`);
-        // console.log(response.data.name)
-        dispatch({type : types.GET_USER, payload : response.data})
+export const getUser = (userId) => dispatch=> {
+       _getUser(userId, dispatch)
     }
+
+//memoize using lodash library... load the one user only one    
+ const _getUser = _.memoize( async (userId, dispatch) => {
+    const response = await api.get(`/users/${userId}`);
+    // console.log(response.data.name)
+    dispatch({type : types.GET_USER, payload : response.data})
+ })   
