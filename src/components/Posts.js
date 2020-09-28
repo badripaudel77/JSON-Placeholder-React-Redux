@@ -1,7 +1,8 @@
-import React, {Component, Fragment} from 'react';
+import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {getPosts} from '../actions';
 
+import {getPosts} from '../actions';
+import User from './User';
 import './Posts.css';
 
 class Posts extends Component {
@@ -16,6 +17,8 @@ class Posts extends Component {
                 <div className="posts__container" key={post.id}>
                    <h2>{post.title}</h2>
                    <p>{post.body}</p>
+                   {/* <p>{post.userId}</p> */}
+                   <User userId = {post.userId} />
                    <hr />
                 </div>
             );
@@ -25,19 +28,19 @@ class Posts extends Component {
     render() {
       return (
             <div className="postlist">
-                {console.log(this.props.posts)}
+                {/* {console.log(this.props.posts)} */}
                 {this.renderList()}
             </div>
         );
     }
 }
 
+//make posts available to this component.
 const mapStateToProps = (state) => {
-       
     return { posts : state.posts }
 }
 
 //first arg is always mapStateToProps, if nothing to get, pass null
 export default connect(mapStateToProps, {
-    getPosts
+    getPosts,
 })(Posts);

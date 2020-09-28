@@ -11,3 +11,10 @@ export const getPosts = () => {
             dispatch({type : types.GET_POSTS, payload : response.data});
     }
 }
+
+//arrow function syntax, function returning function like above.
+export const getUser = (userId) => async dispatch=> {
+        const response = await api.get(`/users/${userId}`);
+        // console.log(response.data.name)
+        dispatch({type : types.GET_USER, payload : response.data})
+    }
