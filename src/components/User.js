@@ -9,19 +9,22 @@ class User extends Component {
     }
 
     render() {
-
-        const user = this.props.users.find((user) => user.id === this.props.userId);
+        const { user } = this.props;
+        // const user = this.props.users.find((user) => user.id === this.props.userId);
         return (
             <div>
                 {user && <h3>{user.name}</h3>}
-                {/* {console.log(this.props.users)} */}
+                {/* {console.log(this.props.user)} */}
             </div>
         );
     }
 }
 
-const mapStateToProps = (state) => {
-    return { users : state.users }
+const mapStateToProps = (state, /* */ ownProps) => {
+    // return { users : state.users }
+    return {
+         user: state.users.find((user) => user.id === ownProps.userId)
+    }
 }
 
 export default connect(mapStateToProps, {
